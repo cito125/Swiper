@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -34,12 +33,12 @@ public class StationManager {
     private Context mContext;
     private int mRadius = 150;
     private Set<String> mTypeSet;
-    private final Map<String,String> mStationMap;
+    private final Set<String> mStationSet;
     private boolean isDonor;
 
     public StationManager(GoogleApiClient googleApiClient) {
         mContext = googleApiClient.getContext();
-        mStationMap = new HashMap<>();
+        mStationSet = new HashSet<>();
         setTypeSet();
     }
 
@@ -59,11 +58,11 @@ public class StationManager {
     }
 
     private void checkoutOfStations() {
-        for (String key : mStationMap.keySet()) {
-            //remove user from station group using station keys
+        for (String key : mStationSet) {
+            //remove user from station group in firebase using station keys
 
         }
-        mStationMap.clear();
+        mStationSet.clear();
 
     }
 
@@ -82,7 +81,9 @@ public class StationManager {
                     }
 
                     for (int i = 0; i < results.size(); i++) {
-                        mStationMap.put(results.get(i).getPlace_id(),results.get(i).getName());
+                        String place_id = results.get(i).getPlace_id();
+                        mStationSet.add(place_id);
+                        addRecipientToFirebaseGroup(place_id);
                     }
                 }
             }
@@ -92,6 +93,10 @@ public class StationManager {
 
             }
         });
+    }
+
+    private void addRecipientToFirebaseGroup(String place_id) {
+        //add user to firebase group
     }
 
     private void startNotification() {

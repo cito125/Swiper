@@ -151,6 +151,6 @@ public class DonorResponse {
     }
 
     private void notifyFirebase() {
-        //Add logic to notify firebase
+        //Add logic to notify firebase, info is held in firebase
     }
 }
