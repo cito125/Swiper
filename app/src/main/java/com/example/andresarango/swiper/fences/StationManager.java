@@ -13,8 +13,10 @@ import com.example.andresarango.swiper.model.places_response.PlacesResponse;
 import com.example.andresarango.swiper.model.places_response.Result;
 import com.example.andresarango.swiper.network.places.PlacesAPI;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -31,10 +33,12 @@ public class StationManager {
     private Context mContext;
     private int mRadius = 150;
     private Set<String> mTypeSet;
+    private final Map<String,String> mStationMap;
     private boolean isDonor;
 
     public StationManager(Context context) {
         mContext = context;
+        mStationMap = new HashMap<>();
         setTypeSet();
     }
 
@@ -45,10 +49,20 @@ public class StationManager {
         mTypeSet.add("transit_station");
     }
 
-    public void checkForSubways(String location) {
+    public void checkIntoStations(String location) {
+        checkoutOfStations();
         for (String type: mTypeSet) {
             searchByStationType(location, type);
         }
+
+    }
+
+    private void checkoutOfStations() {
+        for (String key : mStationMap.keySet()) {
+            //remove user from station group using station keys
+
+        }
+        mStationMap.clear();
 
     }
 
@@ -67,8 +81,7 @@ public class StationManager {
                     }
 
                     for (int i = 0; i < results.size(); i++) {
-                        results.get(i).getPlace_id();
-                        results.get(i).getName();
+                        mStationMap.put(results.get(i).getPlace_id(),results.get(i).getName());
                     }
                 }
             }

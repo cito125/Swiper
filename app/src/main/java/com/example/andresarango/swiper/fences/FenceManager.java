@@ -74,7 +74,7 @@ public class FenceManager {
                         return;
                     }
                     String location = Double.toString(latitude) + "," + Double.toString(longitude);
-                    mStationManager.checkForSubways(location);
+                    mStationManager.checkIntoStations(location);
                     AwarenessFence awarenessFence = LocationFence.exiting(latitude, longitude, mRadius);
                     updateFences(awarenessFence);
                 }
