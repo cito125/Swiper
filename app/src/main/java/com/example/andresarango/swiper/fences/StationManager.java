@@ -12,6 +12,7 @@ import com.example.andresarango.swiper.R;
 import com.example.andresarango.swiper.model.places_response.PlacesResponse;
 import com.example.andresarango.swiper.model.places_response.Result;
 import com.example.andresarango.swiper.network.places.PlacesAPI;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,8 +37,8 @@ public class StationManager {
     private final Map<String,String> mStationMap;
     private boolean isDonor;
 
-    public StationManager(Context context) {
-        mContext = context;
+    public StationManager(GoogleApiClient googleApiClient) {
+        mContext = googleApiClient.getContext();
         mStationMap = new HashMap<>();
         setTypeSet();
     }

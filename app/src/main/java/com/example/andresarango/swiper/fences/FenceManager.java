@@ -30,29 +30,26 @@ public class FenceManager {
     private final UserFenceReciever mUserFenceReciever;
     private final PendingIntent mPendingIntent;
     public static final String FENCE_KEY = "fence key";
-    private GoogleApiClient mGoogleApiClient;
+    private final GoogleApiClient mGoogleApiClient;
     private static int PERMISSION_LOCATION_CODE;
     private double mRadius = 500;
     private StationManager mStationManager;
 
 
-    public FenceManager(Context context, int locationCode) {
+    public FenceManager(GoogleApiClient googleApiClient, int locationCode) {
         setPermissionLocationCode(locationCode);
-        mContext = context;
+        mGoogleApiClient = googleApiClient;
+        googleApiClient.connect();
+        mContext = mGoogleApiClient.getContext();
         mUserFenceReciever = new UserFenceReciever(this);
         Intent intent = new Intent(FENCE_RECEIVER_ACTION);
         mPendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
-        mStationManager = new StationManager(mContext);
-        buildClient();
         requestPermission();
+        mStationManager = new StationManager(mGoogleApiClient);
+
     }
 
-    private void buildClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(mContext)
-                .addApi(Awareness.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
+
 
     public void requestPermission() {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

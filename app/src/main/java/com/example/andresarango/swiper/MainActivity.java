@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.andresarango.swiper.fences.FenceManager;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,12 +21,15 @@ public class MainActivity extends AppCompatActivity {
     private Button mUserButton;
     private Button mDonorButton;
     private FenceManager mFenceManager;
+    @Inject
+    GoogleApiClient mGoogleApiClient;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ((MyApplication) getApplication()).getComponent().inject(this);
         initializeButtons();
         startFences();
 
@@ -31,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void startFences() {
-        mFenceManager = new FenceManager(getApplicationContext(), PERMISSION_CODE);
+        mFenceManager = new FenceManager(mGoogleApiClient, PERMISSION_CODE);
         mFenceManager.makeFence();
     }
 

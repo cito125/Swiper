@@ -33,9 +33,7 @@ public class DirectionsAPI {
         return instance;
     }
 
-    public Call<DirectionsResponse> getDirections(String origin_place_id, String destination_place_id) {
-        String origin = "place_id:" + origin_place_id;
-        String destination = "place_id:" + destination_place_id;
+    public Call<DirectionsResponse> getDirections(String origin, String destination) {
         return apiService.getDirections(origin, destination, DIRECTIONS_API_KEY);
     }
 
