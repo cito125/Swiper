@@ -1,7 +1,14 @@
 package com.example.andresarango.swiper.fences;
 
 
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+
+import com.example.andresarango.swiper.AutoCompleteActivity;
 import com.example.andresarango.swiper.MainActivity;
+import com.example.andresarango.swiper.R;
 import com.example.andresarango.swiper.model.places_response.PlacesResponse;
 import com.example.andresarango.swiper.model.places_response.Result;
 import com.example.andresarango.swiper.network.places.PlacesAPI;
@@ -21,11 +28,13 @@ import retrofit2.Response;
 public class StationManager {
 
     private final int DONOR_CODE = 0;
+    private Context mContext;
     private int mRadius = 150;
     private Set<String> mTypeSet;
     private boolean isDonor;
 
-    public StationManager() {
+    public StationManager(Context context) {
+        mContext = context;
         setTypeSet();
     }
 
@@ -72,11 +81,27 @@ public class StationManager {
     }
 
     private void startNotification() {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(mContext)
+                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                        .setContentTitle("HEADED SOMEWHERE?")
+                        .setContentText("Click this notification if you're headed somewhere");
+
+        Intent resultIntent = new Intent(mContext, AutoCompleteActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        mContext,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
+        mBuilder.setContentIntent(resultPendingIntent);
+
 
     }
 
     public boolean isDonor() {
-
         return DONOR_CODE == MainActivity.USER_IDENTIFIER;
     }
 

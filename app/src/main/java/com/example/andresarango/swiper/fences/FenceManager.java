@@ -42,7 +42,7 @@ public class FenceManager {
         mUserFenceReciever = new UserFenceReciever(this);
         Intent intent = new Intent(FENCE_RECEIVER_ACTION);
         mPendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
-        mStationManager = new StationManager();
+        mStationManager = new StationManager(mContext);
         buildClient();
         requestPermission();
     }
