@@ -28,7 +28,7 @@ All recipients within a certain radius of the donor's final station are then not
  The inefficiency comes from me doing all the work of finding the station they are leaving from on their phone and then sending firebase the message and user group to notify. 
  The server should do the work of finding the destination station and calculating donor ETA.
 
-It also doesn't serve its purpose yet so, there's that.
+It also doesn't serve its purpose yet so, there's that. Once the app is functional, we will definitely make it look pretty.
 
 ## Dream Team Collaborators
 
