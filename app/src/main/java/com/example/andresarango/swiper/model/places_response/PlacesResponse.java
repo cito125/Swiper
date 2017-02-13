@@ -12,6 +12,7 @@ public class PlacesResponse {
     @SerializedName("next_page_token")
     String nextPageToken;
     String status;
+
     public List<Result> getResults() {
         return results;
     }

@@ -37,12 +37,12 @@ public class PlacesAPI {
         return apiService.getPlaces(location, radius.toString(), PLACE_API_KEY);
     }
 
-    public Call<PlacesResponse> getSectionByType(String location,  Integer radius, String type){
-        return apiService.getPlacesByType(location,radius.toString(),type,PLACE_API_KEY);
+    public Call<PlacesResponse> getSectionByType(String location, Integer radius, String type) {
+        return apiService.getPlacesByType(location, radius.toString(), type, PLACE_API_KEY);
     }
 
-    public Call<PlacesResponse> getNextSectionPage(String token){
-        return apiService.nextPage(token,PLACE_API_KEY);
+    public Call<PlacesResponse> getNextSectionPage(String token) {
+        return apiService.nextPage(token, PLACE_API_KEY);
     }
 
 }

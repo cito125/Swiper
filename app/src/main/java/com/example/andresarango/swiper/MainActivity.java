@@ -1,5 +1,6 @@
 package com.example.andresarango.swiper;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -15,31 +16,20 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PERMISSION_CODE = 123;
-    private static final String FENCE_RECIEVER_ACTION = "FENCE RECIEVER ACTION";
+    public static final int PERMISSION_CODE = 123;
     public static int USER_IDENTIFIER = 0;
     private Button mUserButton;
     private Button mDonorButton;
-    private FenceManager mFenceManager;
-    @Inject
-    GoogleApiClient mGoogleApiClient;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((MyApplication) getApplication()).getComponent().inject(this);
         initializeButtons();
-        startFences();
 
     }
 
-
-    private void startFences() {
-        mFenceManager = new FenceManager(mGoogleApiClient, PERMISSION_CODE);
-        mFenceManager.makeFence();
-    }
 
     private void initializeButtons() {
         mUserButton = (Button) findViewById(R.id.main_button_recipient);
@@ -50,13 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        registerReceiver(mFenceManager.getmUserFenceReciever(),new IntentFilter(FENCE_RECIEVER_ACTION));
         super.onResume();
     }
 
     @Override
     protected void onStop() {
-        unregisterReceiver(mFenceManager.getmUserFenceReciever());
         super.onStop();
     }
 

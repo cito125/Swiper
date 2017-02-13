@@ -18,10 +18,10 @@ public class GeocodeAPI {
     private final GeocodeService apiService;
     private static volatile GeocodeAPI instance;
 
-    public static GeocodeAPI getInstance(){
-        if(instance == null){
-            synchronized (GeocodeAPI.class){
-                if(instance == null){
+    public static GeocodeAPI getInstance() {
+        if (instance == null) {
+            synchronized (GeocodeAPI.class) {
+                if (instance == null) {
                     instance = new GeocodeAPI();
                 }
             }
@@ -29,13 +29,13 @@ public class GeocodeAPI {
         return instance;
     }
 
-    private GeocodeAPI(){
+    private GeocodeAPI() {
         apiService = (new NetworkServices()).getJSONService(BASE_URL, GeocodeService.class);
     }
-    
-    public Call<GeocodeResponse> getGeocodeResponse(String latitudeLongitude){
-        return apiService.getGeocodeResponse(latitudeLongitude,API_KEY);
+
+    public Call<GeocodeResponse> getGeocodeResponse(String latitudeLongitude) {
+        return apiService.getGeocodeResponse(latitudeLongitude, API_KEY);
     }
-    
+
 }
 

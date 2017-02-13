@@ -23,12 +23,12 @@ public class UserFenceReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         FenceState fenceState = FenceState.extract(intent);
-        if(TextUtils.equals(fenceState.getFenceKey(), FenceManager.FENCE_KEY)){
+        if (TextUtils.equals(fenceState.getFenceKey(), FenceManager.FENCE_KEY)) {
             System.out.println("got fence key");
-            if(fenceState.getCurrentState() == FenceState.TRUE){
+            if (fenceState.getCurrentState() == FenceState.TRUE) {
                 mFenceManager.replaceFence();
             }
-        }else {
+        } else {
             System.out.println("SOMETHING HAPPENED");
         }
 

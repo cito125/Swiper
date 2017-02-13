@@ -1,6 +1,7 @@
 package com.example.andresarango.swiper.dagger;
 
 import com.example.andresarango.swiper.AutoCompleteActivity;
+import com.example.andresarango.swiper.FenceService;
 import com.example.andresarango.swiper.MainActivity;
 import com.example.andresarango.swiper.fences.FenceManager;
 
@@ -13,12 +14,10 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = { GoogleClientModule.class})
+@Component(modules = {GoogleClientModule.class})
 public interface AppComponent {
-
-    void inject(FenceManager fenceManager);
 
     void inject(AutoCompleteActivity autoCompleteActivity);
 
-    void inject(MainActivity mainActivity);
+    void inject(FenceService fenceService);
 }

@@ -114,7 +114,7 @@ public class DonorResponse {
                     secondsAfterArrivingAtTrainStation = 0;
 
 
-                }else{
+                } else {
                     return;
                 }
             }
@@ -125,7 +125,6 @@ public class DonorResponse {
             mInfoMap.put(ARRIVAL_STATION, arrivalStationName);
             mInfoMap.put(ARRIVAL_STATION_COORDINATES, latLng);
             setPlaceID(latLng);
-
 
 
         }
@@ -139,7 +138,7 @@ public class DonorResponse {
                     @Override
                     public void onResponse(Call<GeocodeResponse> call, Response<GeocodeResponse> response) {
                         String place_id = response.body().getResults().get(0).getPlace_id();
-                        mInfoMap.put(ARRIVAL_STATION_PLACE_ID,place_id);
+                        mInfoMap.put(ARRIVAL_STATION_PLACE_ID, place_id);
                         notifyFirebase();
                     }
 

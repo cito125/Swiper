@@ -51,7 +51,7 @@ public class StationManager {
 
     public void checkIntoStations(String location) {
         checkoutOfStations();
-        for (String type: mTypeSet) {
+        for (String type : mTypeSet) {
             searchByStationType(location, type);
         }
 
@@ -68,14 +68,14 @@ public class StationManager {
 
     private void searchByStationType(String location, String type) {
         PlacesAPI.getInstance()
-                .getSectionByType(location,mRadius,type).enqueue(new Callback<PlacesResponse>() {
+                .getSectionByType(location, mRadius, type).enqueue(new Callback<PlacesResponse>() {
             @Override
             public void onResponse(Call<PlacesResponse> call, Response<PlacesResponse> response) {
-                if(response.body().getStatus().equalsIgnoreCase("ok")){
+                if (response.body().getStatus().equalsIgnoreCase("ok")) {
                     List<Result> results = response.body().getResults();
                     //do something with results
 
-                    if(isDonor){
+                    if (isDonor) {
                         startNotification();
                         return;
                     }
