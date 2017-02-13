@@ -26,8 +26,10 @@ public class GoogleClientModule {
     @Singleton
     @Provides
     public GoogleApiClient provideGoogleApiClient() {
-        return new GoogleApiClient.Builder(mContext)
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(mContext)
                 .addApi(Awareness.API)
                 .build();
+        googleApiClient.connect();
+        return googleApiClient;
     }
 }

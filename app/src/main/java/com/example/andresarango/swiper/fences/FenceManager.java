@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
+import com.example.andresarango.swiper.activity.MainActivity;
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
@@ -25,38 +26,33 @@ import com.google.android.gms.common.api.Status;
 
 public class FenceManager {
 
-    private static final String FENCE_RECEIVER_ACTION = "FENCE_RECEIVER_ACTION";
+    public static final String FENCE_RECEIVER_ACTION = "FENCE_RECEIVER_ACTION";
+    static final String FENCE_KEY = "fence key";
+
+    private double mRadius = 500;
+
     private final Context mContext;
     private final UserFenceReciever mUserFenceReciever;
-    private final PendingIntent mPendingIntent;
-    public static final String FENCE_KEY = "fence key";
     private final GoogleApiClient mGoogleApiClient;
-    private static int PERMISSION_LOCATION_CODE;
-    private double mRadius = 500;
+    private PendingIntent mPendingIntent;
     private StationManager mStationManager;
 
-
     public FenceManager(GoogleApiClient googleApiClient, int locationCode) {
-        setPermissionLocationCode(locationCode);
         mGoogleApiClient = googleApiClient;
-        googleApiClient.connect();
         mContext = mGoogleApiClient.getContext();
         mUserFenceReciever = new UserFenceReciever(this);
+
+        setPendingIntent();
+
+        mStationManager = new StationManager(mGoogleApiClient.getContext());
+
+    }
+
+    private void setPendingIntent() {
         Intent intent = new Intent(FENCE_RECEIVER_ACTION);
         mPendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, 0);
-        requestPermission();
-        mStationManager = new StationManager(mGoogleApiClient);
-
     }
 
-
-    public void requestPermission() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) mContext,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSION_LOCATION_CODE);
-        }
-    }
 
     public void makeFence() {
         Awareness.SnapshotApi.getLocation(mGoogleApiClient).setResultCallback(new ResultCallback<LocationResult>() {
@@ -78,7 +74,7 @@ public class FenceManager {
         });
     }
 
-    public void replaceFence() {
+    void replaceFence() {
         Awareness.FenceApi.updateFences(
                 mGoogleApiClient,
                 new FenceUpdateRequest.Builder()
@@ -117,9 +113,6 @@ public class FenceManager {
         return mUserFenceReciever;
     }
 
-    public static void setPermissionLocationCode(int permissionLocationCode) {
-        PERMISSION_LOCATION_CODE = permissionLocationCode;
-    }
 
     public void setStationFenceManager(StationManager stationManager) {
         mStationManager = stationManager;

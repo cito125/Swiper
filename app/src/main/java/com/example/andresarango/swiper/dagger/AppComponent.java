@@ -1,9 +1,7 @@
 package com.example.andresarango.swiper.dagger;
 
-import com.example.andresarango.swiper.AutoCompleteActivity;
+import com.example.andresarango.swiper.activity.AutoCompleteActivity;
 import com.example.andresarango.swiper.FenceService;
-import com.example.andresarango.swiper.MainActivity;
-import com.example.andresarango.swiper.fences.FenceManager;
 
 import javax.inject.Singleton;
 

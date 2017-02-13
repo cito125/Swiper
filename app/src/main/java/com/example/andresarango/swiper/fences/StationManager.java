@@ -6,15 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import com.example.andresarango.swiper.AutoCompleteActivity;
-import com.example.andresarango.swiper.MainActivity;
+import com.example.andresarango.swiper.activity.AutoCompleteActivity;
 import com.example.andresarango.swiper.R;
+import com.example.andresarango.swiper.activity.MainActivity;
 import com.example.andresarango.swiper.model.places_response.PlacesResponse;
 import com.example.andresarango.swiper.model.places_response.Result;
 import com.example.andresarango.swiper.network.places.PlacesAPI;
-import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,8 +34,8 @@ public class StationManager {
     private final Set<String> mStationSet;
     private boolean isDonor;
 
-    public StationManager(GoogleApiClient googleApiClient) {
-        mContext = googleApiClient.getContext();
+    public StationManager(Context context) {
+        mContext = context;
         mStationSet = new HashSet<>();
         setTypeSet();
     }

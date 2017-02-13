@@ -22,12 +22,11 @@ public class MyApplication extends Application {
                 .googleClientModule(new GoogleClientModule(getApplicationContext()))
                 .build();
 
-        startService(new Intent(MyApplication.this, FenceService.class));
-
-
     }
 
     public AppComponent getComponent() {
         return component;
     }
+
+
 }
